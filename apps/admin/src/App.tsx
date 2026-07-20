@@ -379,7 +379,11 @@ function OrderStatusPanel() {
 
 function TopDishesPanel({ products }: { products: AdminProduct[] }) {
   const dishes = products.length
-    ? products.slice(0, 5).map((product) => ({
+    ? [...products]
+        .filter((product) => product.category.name === "Plats")
+        .sort((a, b) => Number(b.isFeatured) - Number(a.isFeatured) || a.sortOrder - b.sortOrder)
+        .slice(0, 5)
+        .map((product) => ({
         name: product.name,
         sold: product.isFeatured ? 234 : 128,
         price: formatDollars(product.priceCents),
@@ -417,7 +421,10 @@ function MenuManagementPanel({ products, categories, isLoading }: { products: Ad
         <span><b>{products.filter((product) => product.isFeatured).length}</b> populaires</span>
       </div>
       <div className="admin-product-list">
-        {products.slice(0, 6).map((product) => (
+        {[...products]
+          .sort((a, b) => a.category.name.localeCompare(b.category.name) || a.sortOrder - b.sortOrder)
+          .slice(0, 8)
+          .map((product) => (
           <div className="admin-product-row" key={product.id}>
             <div>
               <strong>{product.name}</strong>
@@ -427,6 +434,26 @@ function MenuManagementPanel({ products, categories, isLoading }: { products: Ad
             <span className={product.isAvailable ? "status-badge available" : "status-badge"}>
               {product.isAvailable ? "Disponible" : "Masqué"}
             </span>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function CategoriesPanel({ categories }: { categories: AdminCategory[] }) {
+  return (
+    <section className="panel categories-panel">
+      <PanelHeader title="Catégories" action={`${categories.length} actives`} />
+      <div className="category-list">
+        {categories.map((category) => (
+          <div className="category-row" key={category.id}>
+            <span><Tag size={18} /></span>
+            <div>
+              <strong>{category.name}</strong>
+              <small>{category.slug}</small>
+            </div>
+            <b>{category._count?.products ?? 0} plats</b>
           </div>
         ))}
       </div>
@@ -660,10 +687,14 @@ export function App() {
           <OrderStatusPanel />
         </section>
 
+        <section className="admin-data-grid">
+          <MenuManagementPanel products={products} categories={categories} isLoading={isLoadingMenu} />
+          <CategoriesPanel categories={categories} />
+        </section>
+
         <section className="bottom-grid">
           <TopDishesPanel products={products} />
           <ChannelsPanel />
-          <MenuManagementPanel products={products} categories={categories} isLoading={isLoadingMenu} />
           <MessagesPanel />
           <ReviewsPanel />
           <StockPanel />

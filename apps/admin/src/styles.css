@@ -294,6 +294,7 @@ nav button.active {
 .topbar {
   justify-content: space-between;
   gap: 20px;
+  align-items: flex-start;
 }
 
 .search {
@@ -330,6 +331,7 @@ nav button.active {
   flex-wrap: wrap;
   justify-content: flex-end;
   gap: 12px;
+  max-width: 920px;
 }
 
 .actions button,
@@ -422,7 +424,7 @@ nav button.active {
 
 .date-row {
   justify-content: flex-end;
-  margin: 30px 0 18px;
+  margin: 22px 0 18px;
 }
 
 .api-banner {
@@ -432,7 +434,7 @@ nav button.active {
 
 .metrics-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(220px, 1fr));
+  grid-template-columns: repeat(4, minmax(250px, 1fr));
   gap: 16px;
 }
 
@@ -447,9 +449,9 @@ nav button.active {
 .metric-card {
   display: grid;
   min-height: 118px;
-  grid-template-columns: 72px minmax(0, 1fr) 98px;
+  grid-template-columns: 60px minmax(118px, 1fr) 88px;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
   padding: 20px;
 }
 
@@ -488,7 +490,7 @@ nav button.active {
 .metric-copy strong {
   display: block;
   color: #050505;
-  font-size: 27px;
+  font-size: 25px;
   line-height: 1.1;
 }
 
@@ -503,7 +505,7 @@ nav button.active {
 }
 
 .sparkline {
-  width: 98px;
+  width: 88px;
   height: 48px;
 }
 
@@ -687,7 +689,12 @@ nav button.active {
 
 .bottom-grid {
   display: grid;
-  grid-template-columns: 1.05fr 0.8fr 1.25fr 1.25fr 1fr 1.08fr;
+  grid-template-columns:
+    minmax(270px, 1.05fr)
+    minmax(230px, 0.85fr)
+    minmax(300px, 1.12fr)
+    minmax(270px, 1fr)
+    minmax(260px, 0.95fr);
   gap: 14px;
   margin-top: 16px;
 }
@@ -896,7 +903,14 @@ nav button.active {
 }
 
 .menu-management-panel {
-  min-width: 320px;
+  min-width: 0;
+}
+
+.admin-data-grid {
+  display: grid;
+  grid-template-columns: minmax(640px, 1fr) minmax(280px, 0.38fr);
+  gap: 14px;
+  margin-top: 16px;
 }
 
 .menu-summary {
@@ -924,16 +938,24 @@ nav button.active {
 
 .admin-product-list {
   display: grid;
-  gap: 10px;
+  gap: 0;
+  overflow: hidden;
+  border: 1px solid #eee5da;
+  border-radius: 8px;
 }
 
 .admin-product-row {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto auto;
+  grid-template-columns: minmax(0, 1fr) 88px 104px;
   align-items: center;
-  gap: 10px;
+  gap: 14px;
   border-bottom: 1px solid #eee5da;
-  padding-bottom: 10px;
+  padding: 12px 14px;
+  background: rgba(255, 250, 244, 0.7);
+}
+
+.admin-product-row:last-child {
+  border-bottom: 0;
 }
 
 .admin-product-row strong,
@@ -973,6 +995,55 @@ nav button.active {
   color: var(--green-700);
 }
 
+.category-list {
+  display: grid;
+  gap: 10px;
+}
+
+.category-row {
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid #eee5da;
+  border-radius: 8px;
+  padding: 12px;
+  background: #fffaf4;
+}
+
+.category-row > span {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--green-100);
+  color: var(--green-700);
+}
+
+.category-row strong,
+.category-row small {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.category-row strong {
+  color: #17130f;
+  font-size: 13px;
+}
+
+.category-row small {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.category-row b {
+  color: #075c39;
+  font-size: 12px;
+}
+
 .page-footer {
   padding: 24px 0 0;
   color: #b7832a;
@@ -994,6 +1065,10 @@ nav button.active {
 
   .bottom-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .admin-data-grid {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -1018,7 +1093,8 @@ nav button.active {
   }
 
   .topbar,
-  .main-grid {
+  .main-grid,
+  .admin-data-grid {
     grid-template-columns: 1fr;
   }
 
@@ -1050,7 +1126,8 @@ nav button.active {
   }
 
   .metrics-grid,
-  .bottom-grid {
+  .bottom-grid,
+  .admin-data-grid {
     grid-template-columns: 1fr;
   }
 
