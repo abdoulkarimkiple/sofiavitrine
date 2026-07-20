@@ -9,8 +9,14 @@
   ],
   "scripts": {
     "dev": "npm run dev -w @sofia/web",
+    "dev:api": "npm run dev -w @sofia/api",
     "build": "npm run build -w @sofia/web",
+    "build:api": "npm run build -w @sofia/api",
+    "build:all": "npm run build -w @sofia/web && npm run build -w @sofia/api",
     "preview": "npm run preview -w @sofia/web",
+    "start:api": "npm run start -w @sofia/api",
+    "api:up": "docker compose up -d api",
+    "api:logs": "docker compose logs -f api",
     "db:up": "docker compose up -d postgres",
     "db:down": "docker compose down",
     "db:logs": "docker compose logs -f postgres"

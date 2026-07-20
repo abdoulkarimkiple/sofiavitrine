@@ -1,7 +1,10 @@
 node_modules
+apps/*/node_modules
 dist
+apps/*/dist
+.git
 .DS_Store
 .env
 .env.local
 .env.*.local
-*.tsbuildinfo
+npm-debug.log*

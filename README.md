@@ -25,9 +25,11 @@ packages/
 
 ## Docker et base de donnees
 
-Le projet utilise Docker Compose pour preparer PostgreSQL en local.
+Le projet utilise Docker Compose pour preparer PostgreSQL et l'API NestJS en local.
 
 ```bash
+npm run api:up
+npm run api:logs
 npm run db:up
 npm run db:logs
 npm run db:down
@@ -42,6 +44,24 @@ La base locale par defaut :
 - URL : `postgresql://sofia:sofia_dev_password@localhost:5433/sofia?schema=public`
 
 Ces valeurs sont dans `.env.example`. Le fichier `.env` local n'est pas versionne.
+
+## API NestJS
+
+Le backend se trouve dans `apps/api`.
+
+```bash
+npm run dev:api
+npm run build:api
+npm run start:api
+```
+
+Endpoint de verification :
+
+```bash
+curl http://localhost:3000/api/health
+```
+
+En Docker, `npm run api:up` demarre l'API et PostgreSQL.
 
 ## Modifications courantes
 
