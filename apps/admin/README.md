@@ -1,5 +1,13 @@
 # Admin
 
-Future React admin dashboard for African Restaurant Sofia.
+React admin dashboard for African Restaurant Sofia.
 
-This folder will contain the private back-office UI based on the provided design.
+## Commands
+
+```bash
+npm run dev:admin
+npm run build:admin
+npm run preview:admin
+```
+
+The first version is a static dashboard based on the provided admin design. It will be connected to protected API endpoints in the next steps.
