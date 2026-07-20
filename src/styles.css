@@ -1,0 +1,90 @@
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Inter:wght@400;500;600;700;800&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-background: #050505;
+  --color-background-secondary: #0d0d0d;
+  --color-surface: #151515;
+  --color-surface-light: #1d1d1d;
+  --color-gold: #d4a72c;
+  --color-gold-light: #f2ca57;
+  --color-gold-dark: #9d6f0c;
+  --color-cream: #f5ead5;
+  --color-white: #ffffff;
+  --color-muted: #b9b2a8;
+  --color-brown: #4a2b16;
+  --color-copper: #b85c23;
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--color-background);
+  color: var(--color-cream);
+  font-family: Inter, system-ui, sans-serif;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.08;
+  background-image:
+    linear-gradient(45deg, transparent 48%, rgba(212, 167, 44, 0.45) 49%, transparent 51%),
+    linear-gradient(-45deg, transparent 48%, rgba(212, 167, 44, 0.3) 49%, transparent 51%);
+  background-size: 44px 44px;
+}
+
+img {
+  max-width: 100%;
+}
+
+button,
+a,
+input,
+select,
+textarea,
+summary {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.section {
+  padding-block: clamp(4rem, 8vw, 7rem);
+}
+
+.eyebrow {
+  margin-bottom: 0.85rem;
+  color: var(--color-gold);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.section-title {
+  color: var(--color-cream);
+  font-family: Cinzel, Georgia, serif;
+  font-size: clamp(2rem, 4.2vw, 4rem);
+  font-weight: 900;
+  line-height: 1.08;
+}
+
+.section-copy {
+  margin-top: 1.25rem;
+  color: var(--color-muted);
+  font-size: 1.05rem;
+  line-height: 1.85;
+}
+
+::selection {
+  background: var(--color-gold);
+  color: #000;
+}
