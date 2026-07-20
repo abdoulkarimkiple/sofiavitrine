@@ -139,7 +139,7 @@ button {
 .admin-shell {
   display: grid;
   min-height: 100vh;
-  grid-template-columns: 270px minmax(0, 1fr);
+  grid-template-columns: 252px minmax(0, 1fr);
 }
 
 .sidebar {
@@ -149,22 +149,21 @@ button {
   height: 100vh;
   flex-direction: column;
   overflow: hidden;
-  padding: 28px 12px 18px;
+  padding: 22px 10px 14px;
   color: #fff8df;
-  background:
-    linear-gradient(rgba(0, 41, 28, 0.94), rgba(0, 53, 36, 0.96)),
-    repeating-linear-gradient(45deg, transparent 0 18px, rgba(215, 166, 58, 0.08) 18px 20px);
+  background: linear-gradient(rgba(0, 41, 28, 0.96), rgba(0, 53, 36, 0.98));
 }
 
 .sidebar::after {
   content: "";
   position: absolute;
-  inset: auto 0 120px;
-  height: 68px;
+  inset: auto 0 86px;
+  height: 42px;
   border-block: 1px solid rgba(215, 166, 58, 0.35);
   background:
     repeating-linear-gradient(135deg, transparent 0 10px, rgba(215, 166, 58, 0.18) 10px 12px),
     rgba(0, 0, 0, 0.08);
+  pointer-events: none;
 }
 
 .brand {
@@ -172,6 +171,12 @@ button {
   align-items: center;
   gap: 12px;
   padding: 0 14px;
+}
+
+.sidebar-brand {
+  justify-content: center;
+  gap: 10px;
+  padding-inline: 4px;
 }
 
 .brand img {
@@ -182,11 +187,22 @@ button {
   box-shadow: 0 0 0 2px rgba(215, 166, 58, 0.58);
 }
 
+.sidebar-brand img {
+  width: 46px;
+  height: 46px;
+}
+
 .brand strong {
   display: block;
   font-family: Cinzel, Georgia, serif;
   font-size: 25px;
   line-height: 0.95;
+}
+
+.sidebar-brand strong {
+  font-size: 28px;
+  letter-spacing: 0;
+  line-height: 1;
 }
 
 .brand span {
@@ -198,17 +214,25 @@ button {
   font-weight: 800;
 }
 
+.sidebar-brand span {
+  margin-top: 4px;
+  font-size: 12px;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
 .admin-pill {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   align-self: center;
-  margin: 24px 0;
+  margin: 16px 0 18px;
   border: 1px solid rgba(215, 166, 58, 0.6);
   border-radius: 999px;
-  padding: 8px 16px;
+  padding: 7px 14px;
   background: rgba(0, 0, 0, 0.18);
   color: #fff5d7;
+  font-size: 13px;
   font-weight: 700;
 }
 
@@ -216,19 +240,20 @@ nav {
   position: relative;
   z-index: 1;
   display: grid;
-  gap: 8px;
+  gap: 4px;
 }
 
 nav button {
   display: flex;
-  min-height: 50px;
+  min-height: 42px;
   align-items: center;
-  gap: 16px;
+  gap: 13px;
   border: 1px solid transparent;
   border-radius: 8px;
-  padding: 0 20px;
+  padding: 0 16px;
   background: transparent;
   color: #edf7ed;
+  font-size: 14px;
   font-weight: 700;
   text-align: left;
 }
@@ -243,13 +268,13 @@ nav button.active {
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: 54px minmax(0, 1fr) auto;
+  grid-template-columns: 42px minmax(0, 1fr) auto;
   align-items: center;
-  gap: 14px;
+  gap: 10px;
   margin-top: auto;
   border: 1px solid rgba(215, 166, 58, 0.35);
   border-radius: 10px;
-  padding: 14px;
+  padding: 10px;
   background: rgba(5, 95, 58, 0.65);
 }
 
@@ -261,6 +286,11 @@ nav button.active {
   object-fit: cover;
 }
 
+.location-card img {
+  width: 38px;
+  height: 38px;
+}
+
 .location-card strong,
 .location-card span {
   display: block;
@@ -269,9 +299,13 @@ nav button.active {
   white-space: nowrap;
 }
 
+.location-card strong {
+  font-size: 13px;
+}
+
 .location-card span {
   color: #d9d1bd;
-  font-size: 13px;
+  font-size: 12px;
 }
 
 .workspace {

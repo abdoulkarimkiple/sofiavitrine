@@ -626,11 +626,11 @@ export function App() {
   return (
     <main className="admin-shell">
       <aside className="sidebar">
-        <div className="brand">
+        <div className="brand sidebar-brand">
           <img src={logoImage} alt="" />
           <div>
-            <strong>African<br />Restaurant</strong>
-            <span>SOFIA</span>
+            <strong>SOFIA</strong>
+            <span>Admin</span>
           </div>
         </div>
         <div className="admin-pill"><Crown size={14} /> Admin</div>
