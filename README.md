@@ -53,6 +53,9 @@ Le backend se trouve dans `apps/api`.
 npm run dev:api
 npm run build:api
 npm run start:api
+npm run prisma:generate
+npm run prisma:migrate
+npm run prisma:studio
 ```
 
 Endpoint de verification :
@@ -62,6 +65,21 @@ curl http://localhost:3000/api/health
 ```
 
 En Docker, `npm run api:up` demarre l'API et PostgreSQL.
+
+## Base de donnees
+
+Le schema Prisma se trouve dans `apps/api/prisma/schema.prisma`.
+
+La migration initiale cree les tables principales du projet :
+
+- utilisateurs admin
+- clients et adresses
+- categories, plats et variantes
+- commandes et lignes de commande
+- promotions
+- avis
+- stock et mouvements de stock
+- parametres applicatifs
 
 ## Modifications courantes
 

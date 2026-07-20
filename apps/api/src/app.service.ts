@@ -1,11 +1,17 @@
 import { Injectable } from "@nestjs/common";
+import { PrismaService } from "./database/prisma.service";
 
 @Injectable()
 export class AppService {
-  getHealth() {
+  constructor(private readonly prisma: PrismaService) {}
+
+  async getHealth() {
+    await this.prisma.$queryRaw`SELECT 1`;
+
     return {
       status: "ok",
       service: "sofia-api",
+      database: "ok",
       timestamp: new Date().toISOString(),
     };
   }
