@@ -2,7 +2,6 @@ import {
   BarChart3,
   Bell,
   Bike,
-  CalendarDays,
   ChevronDown,
   ChevronRight,
   ChefHat,
@@ -12,7 +11,6 @@ import {
   Grid2X2,
   MessageCircle,
   Package,
-  Plus,
   Search,
   Settings,
   ShoppingBag,
@@ -637,20 +635,12 @@ export function App() {
             <span>⌘ K</span>
           </label>
           <div className="actions">
-            <button className="primary"><Plus size={18} /> Nouvelle commande</button>
-            <button><Utensils size={18} /> Ajouter un plat</button>
-            <button className="promo"><Gift size={18} /> Promotion</button>
-            <button className="whatsapp"><MessageCircle size={19} /></button>
             <button className="notification"><Bell size={20} /><span>3</span></button>
             <button className="profile" onClick={handleLogout}><span>{auth.user.name.slice(0, 2).toUpperCase()}</span><b>{auth.user.name}</b><small>{auth.user.role}</small><ChevronDown size={16} /></button>
           </div>
         </header>
 
         {apiError && <div className="api-banner">{apiError}</div>}
-
-        <div className="date-row">
-          <button><CalendarDays size={16} /> 18 mai - 24 mai 2025 <ChevronDown size={16} /></button>
-        </div>
 
         <section className="metrics-grid">
           {dashboardMetrics.map((metric) => <MetricCard metric={metric} key={metric.label} />)}
