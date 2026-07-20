@@ -154,18 +154,6 @@ button {
   background: linear-gradient(rgba(0, 41, 28, 0.96), rgba(0, 53, 36, 0.98));
 }
 
-.sidebar::after {
-  content: "";
-  position: absolute;
-  inset: auto 0 86px;
-  height: 42px;
-  border-block: 1px solid rgba(215, 166, 58, 0.35);
-  background:
-    repeating-linear-gradient(135deg, transparent 0 10px, rgba(215, 166, 58, 0.18) 10px 12px),
-    rgba(0, 0, 0, 0.08);
-  pointer-events: none;
-}
-
 .brand {
   display: flex;
   align-items: center;
@@ -1133,7 +1121,6 @@ nav button.active {
     padding: 20px;
   }
 
-  .sidebar::after,
   .location-card {
     display: none;
   }
