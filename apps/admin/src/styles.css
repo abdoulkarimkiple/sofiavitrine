@@ -163,7 +163,7 @@ button {
 
 .sidebar-brand {
   justify-content: center;
-  gap: 10px;
+  gap: 9px;
   padding-inline: 4px;
 }
 
@@ -176,8 +176,8 @@ button {
 }
 
 .sidebar-brand img {
-  width: 46px;
-  height: 46px;
+  width: 42px;
+  height: 42px;
 }
 
 .brand strong {
@@ -188,7 +188,7 @@ button {
 }
 
 .sidebar-brand strong {
-  font-size: 28px;
+  font-size: 24px;
   letter-spacing: 0;
   line-height: 1;
 }
@@ -203,8 +203,8 @@ button {
 }
 
 .sidebar-brand span {
-  margin-top: 4px;
-  font-size: 12px;
+  margin-top: 3px;
+  font-size: 11px;
   letter-spacing: 0;
   text-transform: uppercase;
 }
@@ -456,8 +456,8 @@ nav button.active {
 
 .metrics-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(235px, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(4, minmax(210px, 1fr));
+  gap: 12px;
 }
 
 .metric-card,
@@ -471,21 +471,26 @@ nav button.active {
 .metric-card {
   position: relative;
   display: grid;
-  min-height: 118px;
-  grid-template-columns: 58px minmax(0, 1fr) 78px;
+  min-height: 96px;
+  grid-template-columns: 46px minmax(0, 1fr) 62px;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   overflow: hidden;
-  padding: 18px;
+  padding: 14px;
 }
 
 .metric-icon,
 .status-icon {
   display: grid;
-  width: 54px;
-  height: 54px;
+  width: 46px;
+  height: 46px;
   place-items: center;
   border-radius: 50%;
+}
+
+.status-icon {
+  width: 54px;
+  height: 54px;
 }
 
 .metric-green,
@@ -512,16 +517,20 @@ nav button.active {
   line-height: 1.2;
 }
 
+.metric-copy p {
+  font-size: 14px;
+}
+
 .metric-copy strong {
   display: block;
   color: #050505;
-  font-size: 24px;
+  font-size: 21px;
   line-height: 1.1;
 }
 
 .metric-copy span {
   color: #0f8a44;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 800;
   line-height: 1.25;
 }
@@ -532,8 +541,8 @@ nav button.active {
 
 .sparkline {
   justify-self: end;
-  width: 76px;
-  height: 44px;
+  width: 58px;
+  height: 32px;
   max-width: 100%;
   overflow: visible;
 }
