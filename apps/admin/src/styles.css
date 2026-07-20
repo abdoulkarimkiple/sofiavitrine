@@ -306,7 +306,6 @@ nav button.active {
 .panel-header,
 .legend,
 .chart-days,
-.status-flow,
 .panel-footer {
   display: flex;
   align-items: center;
@@ -654,59 +653,98 @@ nav button.active {
 
 .status-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(125px, 1fr));
+  gap: 12px;
+  margin-top: 12px;
 }
 
 .status-column {
+  position: relative;
   min-width: 0;
-  border-right: 1px solid var(--line);
-  padding: 0 16px;
-  text-align: center;
+  border: 1px solid #eee5da;
+  border-radius: 10px;
+  padding: 12px;
+  background: #fffaf4;
 }
 
-.status-column:last-child {
-  border-right: 0;
+.status-heading {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
 }
 
-.status-flow {
-  min-height: 48px;
-  justify-content: center;
+.status-panel .status-icon {
+  width: 44px;
+  height: 44px;
 }
 
 .status-arrow {
-  margin-left: 24px;
+  position: absolute;
+  top: 24px;
+  right: -20px;
+  z-index: 1;
+  display: grid;
+  width: 26px;
+  height: 26px;
+  place-items: center;
+  border: 1px solid #eee5da;
+  border-radius: 50%;
+  background: var(--panel);
   color: #b9b0a3;
-  font-size: 28px;
+  font-size: 18px;
 }
 
 .status-column strong {
   display: block;
-  margin-bottom: 10px;
-  font-size: 25px;
+  color: #071a10;
+  font-size: 24px;
+  line-height: 1;
+}
+
+.status-column small {
+  display: block;
+  margin-bottom: 7px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
 }
 
 .mini-orders {
   display: grid;
   gap: 6px;
-  margin: 0 auto 14px;
-  max-width: 120px;
-  border: 1px solid #eee5da;
-  border-radius: 8px;
-  padding: 9px;
-  background: #fffaf4;
+  margin-bottom: 10px;
 }
 
 .mini-orders span {
   display: flex;
   justify-content: space-between;
   gap: 8px;
+  border-radius: 7px;
+  padding: 6px 8px;
+  background: rgba(255, 253, 249, 0.9);
   color: #565047;
   font-size: 12px;
+}
+
+.mini-orders b {
+  color: #3c372f;
 }
 
 .mini-orders em {
   color: #8a8176;
   font-style: normal;
+}
+
+.status-column .text-link {
+  width: 100%;
+  justify-content: center;
+  margin-top: 2px;
+  padding-top: 8px;
+  border-top: 1px solid #eee5da;
+  font-size: 13px;
 }
 
 .text-link,
@@ -1174,13 +1212,7 @@ nav button.active {
   }
 
   .status-column {
-    border-right: 0;
-    border-bottom: 1px solid var(--line);
-    padding-bottom: 14px;
-  }
-
-  .status-column:last-child {
-    border-bottom: 0;
+    padding-bottom: 12px;
   }
 
   .status-arrow {

@@ -331,7 +331,7 @@ function PanelHeader({ title, action = "Voir tout" }: { title: string; action?: 
   return (
     <div className="panel-header">
       <h2>{title}</h2>
-      <button>{action}</button>
+      {action && <button>{action}</button>}
     </div>
   );
 }
@@ -345,13 +345,16 @@ function OrderStatusPanel() {
           const Icon = status.icon;
 
           return (
-            <div className="status-column" key={status.label}>
-              <div className="status-flow">
-                <span className="status-icon"><Icon size={20} /></span>
-                {index < orderStatuses.length - 1 && <span className="status-arrow">→</span>}
+            <article className="status-column" key={status.label}>
+              <div className="status-heading">
+                <span className="status-icon"><Icon size={19} /></span>
+                <div>
+                  <p>{status.label}</p>
+                  <strong>{status.count}</strong>
+                </div>
               </div>
-              <p>{status.label}</p>
-              <strong>{status.count}</strong>
+              {index < orderStatuses.length - 1 && <span className="status-arrow">→</span>}
+              <small>Commandes récentes</small>
               <div className="mini-orders">
                 {status.orders.map((order) => {
                   const [number, time] = order.split(" ");
@@ -359,7 +362,7 @@ function OrderStatusPanel() {
                 })}
               </div>
               <button className="text-link">Voir tout ({status.count})</button>
-            </div>
+            </article>
           );
         })}
       </div>
