@@ -10,6 +10,9 @@
   "scripts": {
     "dev": "npm run dev -w @sofia/web",
     "build": "npm run build -w @sofia/web",
-    "preview": "npm run preview -w @sofia/web"
+    "preview": "npm run preview -w @sofia/web",
+    "db:up": "docker compose up -d postgres",
+    "db:down": "docker compose down",
+    "db:logs": "docker compose logs -f postgres"
   }
 }

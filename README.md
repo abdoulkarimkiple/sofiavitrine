@@ -17,9 +17,31 @@ packages/
 
 1. Installer Node.js depuis `https://nodejs.org`.
 2. Dans ce dossier, lancer `npm install`.
-3. Lancer le site en local avec `npm run dev`.
-4. Generer la version Hostinger avec `npm run build`.
-5. Le dossier pret a deployer est `apps/web/dist`.
+3. Copier `.env.example` vers `.env` pour l'environnement local.
+4. Lancer la base de donnees avec `npm run db:up`.
+5. Lancer le site en local avec `npm run dev`.
+6. Generer la version Hostinger avec `npm run build`.
+7. Le dossier pret a deployer est `apps/web/dist`.
+
+## Docker et base de donnees
+
+Le projet utilise Docker Compose pour preparer PostgreSQL en local.
+
+```bash
+npm run db:up
+npm run db:logs
+npm run db:down
+```
+
+La base locale par defaut :
+
+- Host : `localhost`
+- Port : `5433`
+- Database : `sofia`
+- User : `sofia`
+- URL : `postgresql://sofia:sofia_dev_password@localhost:5433/sofia?schema=public`
+
+Ces valeurs sont dans `.env.example`. Le fichier `.env` local n'est pas versionne.
 
 ## Modifications courantes
 
