@@ -22,6 +22,14 @@ curl http://localhost:3000/api/health
 curl http://localhost:3000/api/menu
 ```
 
+Admin login:
+
+```bash
+curl -X POST http://localhost:3000/api/auth/login \
+  -H 'Content-Type: application/json' \
+  -d '{"email":"admin@africanrestaurantsofia.com","password":"ChangeMe123!"}'
+```
+
 ## Local database
 
 The root `docker-compose.yml` provides PostgreSQL for the future API.

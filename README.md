@@ -90,6 +90,22 @@ Pour remplir la base locale avec le menu actuel :
 npm run prisma:seed
 ```
 
+Le seed cree aussi un administrateur local :
+
+- Email : `admin@africanrestaurantsofia.com`
+- Mot de passe : `ChangeMe123!`
+
+Routes admin ajoutees :
+
+- `POST /api/auth/login`
+- `GET /api/auth/me`
+- `GET /api/admin/categories`
+- `POST /api/admin/categories`
+- `PATCH /api/admin/categories/:id`
+- `GET /api/admin/products`
+- `POST /api/admin/products`
+- `PATCH /api/admin/products/:id`
+
 ## Modifications courantes
 
 - Infos restaurant, WhatsApp, email, reseaux sociaux, adresse et Google Maps : `apps/web/src/config/business.ts`.

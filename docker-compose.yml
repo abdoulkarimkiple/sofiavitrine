@@ -9,6 +9,7 @@ services:
     environment:
       NODE_ENV: development
       PORT: 3000
+      JWT_SECRET: ${JWT_SECRET:-sofia-dev-secret}
       DATABASE_URL: postgresql://${POSTGRES_USER:-sofia}:${POSTGRES_PASSWORD:-sofia_dev_password}@postgres:5432/${POSTGRES_DB:-sofia}?schema=public
     ports:
       - "${API_PORT:-3000}:3000"

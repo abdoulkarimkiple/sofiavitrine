@@ -1,6 +1,17 @@
 const { PrismaClient } = require("@prisma/client");
+const { pbkdf2Sync, randomBytes } = require("node:crypto");
 
 const prisma = new PrismaClient();
+
+function hashPassword(password) {
+  const iterations = 120000;
+  const keyLength = 64;
+  const digest = "sha512";
+  const salt = randomBytes(16).toString("hex");
+  const hash = pbkdf2Sync(password, salt, iterations, keyLength, digest).toString("hex");
+
+  return `pbkdf2$${iterations}$${salt}$${hash}`;
+}
 
 const categories = [
   { name: "Plats", slug: "plats", sortOrder: 1 },
@@ -31,6 +42,25 @@ const products = [
 ];
 
 async function main() {
+  const adminEmail = process.env.ADMIN_EMAIL ?? "admin@africanrestaurantsofia.com";
+  const adminPassword = process.env.ADMIN_PASSWORD ?? "ChangeMe123!";
+
+  await prisma.user.upsert({
+    where: { email: adminEmail.toLowerCase() },
+    update: {
+      name: "Admin",
+      role: "ADMIN",
+      isActive: true,
+    },
+    create: {
+      name: "Admin",
+      email: adminEmail.toLowerCase(),
+      passwordHash: hashPassword(adminPassword),
+      role: "ADMIN",
+      isActive: true,
+    },
+  });
+
   for (const category of categories) {
     await prisma.category.upsert({
       where: { slug: category.slug },
