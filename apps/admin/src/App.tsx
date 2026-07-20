@@ -125,14 +125,6 @@ const reviews = [
   ["Sarah L.", "Meilleur restaurant africain à New York !", "Il y a 5h"],
 ];
 
-const stockAlerts = [
-  ["🌶️", "Piment frais", "2.1 kg"],
-  ["🌿", "Feuilles de laurier", "0.5 kg"],
-  ["🧴", "Huile de palme", "1.2 L"],
-  ["🍚", "Riz étuvé", "3.0 kg"],
-  ["🍅", "Tomates fraîches", "1.5 kg"],
-];
-
 type AdminUser = {
   id: string;
   name: string;
@@ -521,24 +513,6 @@ function ReviewsPanel() {
   );
 }
 
-function StockPanel() {
-  return (
-    <section className="panel">
-      <PanelHeader title="Stock faible" />
-      <div className="stock-list">
-        {stockAlerts.map(([emoji, name, qty]) => (
-          <div className="stock-row" key={name}>
-            <span>{emoji}</span>
-            <strong>{name}</strong>
-            <b>{qty}</b>
-          </div>
-        ))}
-      </div>
-      <div className="alert-box">10 articles en alerte</div>
-    </section>
-  );
-}
-
 export function App() {
   const [auth, setAuth] = useState<AuthState | null>(() => {
     const stored = localStorage.getItem(authStorageKey);
@@ -697,7 +671,6 @@ export function App() {
           <ChannelsPanel />
           <MessagesPanel />
           <ReviewsPanel />
-          <StockPanel />
         </section>
 
         <footer className="page-footer">Cuisine africaine authentique • New York, USA</footer>
