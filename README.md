@@ -2,23 +2,34 @@
 
 Site vitrine React + Vite + TypeScript + Tailwind CSS pour African Restaurant Sofia.
 
+## Structure du projet
+
+```txt
+apps/
+  web/        site vitrine public actuel
+  admin/      futur tableau de bord administrateur
+  api/        futur backend NestJS
+packages/
+  shared/     futurs types et schemas partages
+```
+
 ## Installation
 
 1. Installer Node.js depuis `https://nodejs.org`.
 2. Dans ce dossier, lancer `npm install`.
 3. Lancer le site en local avec `npm run dev`.
 4. Generer la version Hostinger avec `npm run build`.
-5. Le dossier pret a deployer est `dist`.
+5. Le dossier pret a deployer est `apps/web/dist`.
 
 ## Modifications courantes
 
-- Infos restaurant, WhatsApp, email, reseaux sociaux, adresse et Google Maps : `src/config/business.ts`.
-- Horaires : `src/config/hours.ts`.
-- Menu, prix, categories et images temporaires : `src/data/menu.ts`.
-- FAQ : `src/data/faq.ts`.
-- Temoignages demo : `src/data/testimonials.ts`.
-- Logo et carte commerciale : `src/assets/branding/`.
-- Moyens de paiement et zones de livraison : `src/config/business.ts`.
+- Infos restaurant, WhatsApp, email, reseaux sociaux, adresse et Google Maps : `apps/web/src/config/business.ts`.
+- Horaires : `apps/web/src/config/hours.ts`.
+- Menu, prix, categories et images temporaires : `apps/web/src/data/menu.ts`.
+- FAQ : `apps/web/src/data/faq.ts`.
+- Temoignages demo : `apps/web/src/data/testimonials.ts`.
+- Logo et carte commerciale : `apps/web/src/assets/branding/`.
+- Moyens de paiement et zones de livraison : `apps/web/src/config/business.ts`.
 
 ## Ajouter Google Maps
 
@@ -32,13 +43,13 @@ Ne pas inventer d'adresse. Quand l'adresse exacte est disponible :
 
 ## Remplacer les photos
 
-Mettre les vraies photos dans `src/assets/dishes/`, puis remplacer les URLs dans `src/data/menu.ts`.
+Mettre les vraies photos dans `apps/web/src/assets/dishes/`, puis remplacer les URLs dans `apps/web/src/data/menu.ts`.
 
 ## Hostinger
 
 1. Lancer `npm run build`.
-2. Ouvrir le dossier `dist`.
-3. Envoyer le contenu de `dist` dans `public_html` sur Hostinger.
+2. Ouvrir le dossier `apps/web/dist`.
+3. Envoyer le contenu de `apps/web/dist` dans `public_html` sur Hostinger.
 4. Connecter le domaine depuis le panneau Hostinger.
 5. Activer HTTPS/SSL dans Hostinger.
 6. Vider le cache Hostinger si les changements ne s'affichent pas.
