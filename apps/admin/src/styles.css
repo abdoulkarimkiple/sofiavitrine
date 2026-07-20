@@ -139,7 +139,7 @@ button {
 .admin-shell {
   display: grid;
   min-height: 100vh;
-  grid-template-columns: 320px minmax(0, 1fr);
+  grid-template-columns: 270px minmax(0, 1fr);
 }
 
 .sidebar {
@@ -149,7 +149,7 @@ button {
   height: 100vh;
   flex-direction: column;
   overflow: hidden;
-  padding: 34px 16px 20px;
+  padding: 28px 12px 18px;
   color: #fff8df;
   background:
     linear-gradient(rgba(0, 41, 28, 0.94), rgba(0, 53, 36, 0.96)),
@@ -170,13 +170,13 @@ button {
 .brand {
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding: 0 22px;
+  gap: 12px;
+  padding: 0 14px;
 }
 
 .brand img {
-  width: 64px;
-  height: 64px;
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
   object-fit: cover;
   box-shadow: 0 0 0 2px rgba(215, 166, 58, 0.58);
@@ -185,7 +185,7 @@ button {
 .brand strong {
   display: block;
   font-family: Cinzel, Georgia, serif;
-  font-size: 30px;
+  font-size: 25px;
   line-height: 0.95;
 }
 
@@ -194,7 +194,7 @@ button {
   margin-top: 8px;
   color: var(--gold-500);
   font-family: Cinzel, Georgia, serif;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 800;
 }
 
@@ -221,12 +221,12 @@ nav {
 
 nav button {
   display: flex;
-  min-height: 54px;
+  min-height: 50px;
   align-items: center;
   gap: 16px;
   border: 1px solid transparent;
   border-radius: 8px;
-  padding: 0 24px;
+  padding: 0 20px;
   background: transparent;
   color: #edf7ed;
   font-weight: 700;
@@ -434,7 +434,7 @@ nav button.active {
 
 .metrics-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(250px, 1fr));
+  grid-template-columns: repeat(4, minmax(235px, 1fr));
   gap: 16px;
 }
 
@@ -447,19 +447,21 @@ nav button.active {
 }
 
 .metric-card {
+  position: relative;
   display: grid;
   min-height: 118px;
-  grid-template-columns: 60px minmax(118px, 1fr) 88px;
+  grid-template-columns: 58px minmax(0, 1fr) 78px;
   align-items: center;
-  gap: 14px;
-  padding: 20px;
+  gap: 12px;
+  overflow: hidden;
+  padding: 18px;
 }
 
 .metric-icon,
 .status-icon {
   display: grid;
-  width: 58px;
-  height: 58px;
+  width: 54px;
+  height: 54px;
   place-items: center;
   border-radius: 50%;
 }
@@ -485,12 +487,13 @@ nav button.active {
   margin: 0 0 4px;
   color: #211c16;
   font-weight: 700;
+  line-height: 1.2;
 }
 
 .metric-copy strong {
   display: block;
   color: #050505;
-  font-size: 25px;
+  font-size: 24px;
   line-height: 1.1;
 }
 
@@ -498,6 +501,7 @@ nav button.active {
   color: #0f8a44;
   font-size: 13px;
   font-weight: 800;
+  line-height: 1.25;
 }
 
 .metric-copy .muted-change {
@@ -505,8 +509,11 @@ nav button.active {
 }
 
 .sparkline {
-  width: 88px;
-  height: 48px;
+  justify-self: end;
+  width: 76px;
+  height: 44px;
+  max-width: 100%;
+  overflow: visible;
 }
 
 .sparkline path {
@@ -1052,7 +1059,16 @@ nav button.active {
 
 @media (max-width: 1420px) {
   .admin-shell {
-    grid-template-columns: 280px minmax(0, 1fr);
+    grid-template-columns: 240px minmax(0, 1fr);
+  }
+
+  .brand strong {
+    font-size: 21px;
+  }
+
+  .brand img {
+    width: 46px;
+    height: 46px;
   }
 
   .workspace {
@@ -1060,7 +1076,7 @@ nav button.active {
   }
 
   .metrics-grid {
-    grid-template-columns: repeat(2, minmax(220px, 1fr));
+    grid-template-columns: repeat(2, minmax(260px, 1fr));
   }
 
   .bottom-grid {
