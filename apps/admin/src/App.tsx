@@ -22,6 +22,7 @@ import {
   Utensils,
   Warehouse,
 } from "lucide-react";
+import { FormEvent, useEffect, useMemo, useState } from "react";
 import attiekeImage from "../../web/src/assets/plats/Attieke.jpg";
 import brochetteImage from "../../web/src/assets/plats/brochette_alloco.png";
 import dibiImage from "../../web/src/assets/plats/dibi_simple.png";
@@ -131,6 +132,128 @@ const stockAlerts = [
   ["🍚", "Riz étuvé", "3.0 kg"],
   ["🍅", "Tomates fraîches", "1.5 kg"],
 ];
+
+type AdminUser = {
+  id: string;
+  name: string;
+  email: string;
+  role: string;
+};
+
+type AdminCategory = {
+  id: string;
+  name: string;
+  slug: string;
+  isActive: boolean;
+  _count?: {
+    products: number;
+  };
+};
+
+type AdminProduct = {
+  id: string;
+  name: string;
+  slug: string;
+  description: string;
+  priceCents: number;
+  isAvailable: boolean;
+  isFeatured: boolean;
+  sortOrder: number;
+  category: {
+    name: string;
+  };
+};
+
+type AuthState = {
+  accessToken: string;
+  user: AdminUser;
+};
+
+const apiBaseUrl = import.meta.env.VITE_API_URL ?? "http://localhost:3000/api";
+const authStorageKey = "sofia-admin-auth";
+
+const imageBySlug = new Map([
+  ["riz-au-gras", rizImage],
+  ["riz-sauce-yassa", yassaImage],
+  ["dibi-simple", dibiImage],
+  ["brochette-alloco", brochetteImage],
+  ["attieke", attiekeImage],
+]);
+
+async function apiRequest<T>(path: string, token?: string, init?: RequestInit): Promise<T> {
+  const response = await fetch(`${apiBaseUrl}${path}`, {
+    ...init,
+    headers: {
+      "Content-Type": "application/json",
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      ...init?.headers,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(`API request failed with ${response.status}`);
+  }
+
+  return response.json() as Promise<T>;
+}
+
+function formatDollars(cents: number) {
+  return `$${(cents / 100).toFixed(2)}`;
+}
+
+function LoginScreen({ onLogin }: { onLogin: (auth: AuthState) => void }) {
+  const [email, setEmail] = useState("admin@africanrestaurantsofia.com");
+  const [password, setPassword] = useState("ChangeMe123!");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState("");
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setIsSubmitting(true);
+    setError("");
+
+    try {
+      const auth = await apiRequest<AuthState>("/auth/login", undefined, {
+        method: "POST",
+        body: JSON.stringify({ email, password }),
+      });
+
+      localStorage.setItem(authStorageKey, JSON.stringify(auth));
+      onLogin(auth);
+    } catch {
+      setError("Connexion impossible. Vérifiez l'API ou les identifiants.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+
+  return (
+    <main className="login-shell">
+      <section className="login-panel">
+        <div className="brand login-brand">
+          <img src={logoImage} alt="" />
+          <div>
+            <strong>African<br />Restaurant</strong>
+            <span>SOFIA</span>
+          </div>
+        </div>
+        <form onSubmit={handleSubmit} className="login-form">
+          <h1>Connexion admin</h1>
+          <label>
+            Email
+            <input value={email} onChange={(event) => setEmail(event.target.value)} type="email" autoComplete="email" />
+          </label>
+          <label>
+            Mot de passe
+            <input value={password} onChange={(event) => setPassword(event.target.value)} type="password" autoComplete="current-password" />
+          </label>
+          {error && <p className="login-error">{error}</p>}
+          <button disabled={isSubmitting}>{isSubmitting ? "Connexion..." : "Se connecter"}</button>
+        </form>
+      </section>
+    </main>
+  );
+}
 
 function Sparkline({ points, tone }: { points: number[]; tone: Metric["tone"] }) {
   const max = Math.max(...points);
@@ -254,12 +377,21 @@ function OrderStatusPanel() {
   );
 }
 
-function TopDishesPanel() {
+function TopDishesPanel({ products }: { products: AdminProduct[] }) {
+  const dishes = products.length
+    ? products.slice(0, 5).map((product) => ({
+        name: product.name,
+        sold: product.isFeatured ? 234 : 128,
+        price: formatDollars(product.priceCents),
+        image: imageBySlug.get(product.slug) ?? topDishes[0].image,
+      }))
+    : topDishes;
+
   return (
     <section className="panel">
       <PanelHeader title="Top plats" />
       <div className="dish-list">
-        {topDishes.map((dish, index) => (
+        {dishes.map((dish, index) => (
           <div className="dish-row" key={dish.name}>
             <span className="rank">{index + 1}</span>
             <img src={dish.image} alt="" />
@@ -268,6 +400,33 @@ function TopDishesPanel() {
               <small>{dish.sold} vendus</small>
             </div>
             <b>{dish.price}</b>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function MenuManagementPanel({ products, categories, isLoading }: { products: AdminProduct[]; categories: AdminCategory[]; isLoading: boolean }) {
+  return (
+    <section className="panel menu-management-panel">
+      <PanelHeader title="Menu connecté" action={isLoading ? "Chargement" : `${products.length} plats`} />
+      <div className="menu-summary">
+        <span><b>{categories.length}</b> catégories</span>
+        <span><b>{products.filter((product) => product.isAvailable).length}</b> disponibles</span>
+        <span><b>{products.filter((product) => product.isFeatured).length}</b> populaires</span>
+      </div>
+      <div className="admin-product-list">
+        {products.slice(0, 6).map((product) => (
+          <div className="admin-product-row" key={product.id}>
+            <div>
+              <strong>{product.name}</strong>
+              <small>{product.category.name} • {product.slug}</small>
+            </div>
+            <b>{formatDollars(product.priceCents)}</b>
+            <span className={product.isAvailable ? "status-badge available" : "status-badge"}>
+              {product.isAvailable ? "Disponible" : "Masqué"}
+            </span>
           </div>
         ))}
       </div>
@@ -354,6 +513,89 @@ function StockPanel() {
 }
 
 export function App() {
+  const [auth, setAuth] = useState<AuthState | null>(() => {
+    const stored = localStorage.getItem(authStorageKey);
+    return stored ? (JSON.parse(stored) as AuthState) : null;
+  });
+  const [products, setProducts] = useState<AdminProduct[]>([]);
+  const [categories, setCategories] = useState<AdminCategory[]>([]);
+  const [isLoadingMenu, setIsLoadingMenu] = useState(false);
+  const [apiError, setApiError] = useState("");
+
+  useEffect(() => {
+    if (!auth?.accessToken) {
+      return;
+    }
+
+    let isMounted = true;
+    setIsLoadingMenu(true);
+    setApiError("");
+
+    Promise.all([
+      apiRequest<AdminProduct[]>("/admin/products", auth.accessToken),
+      apiRequest<AdminCategory[]>("/admin/categories", auth.accessToken),
+    ])
+      .then(([nextProducts, nextCategories]) => {
+        if (!isMounted) {
+          return;
+        }
+        setProducts(nextProducts);
+        setCategories(nextCategories);
+      })
+      .catch(() => {
+        if (!isMounted) {
+          return;
+        }
+        setApiError("Les données admin ne sont pas disponibles pour le moment.");
+      })
+      .finally(() => {
+        if (isMounted) {
+          setIsLoadingMenu(false);
+        }
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, [auth]);
+
+  const dashboardMetrics = useMemo(() => {
+    if (!products.length) {
+      return metrics;
+    }
+
+    return [
+      {
+        ...metrics[0],
+        label: "Plats en ligne",
+        value: String(products.filter((product) => product.isAvailable).length),
+        change: `${categories.length} catégories`,
+      },
+      {
+        ...metrics[1],
+        label: "Valeur moyenne menu",
+        value: formatDollars(Math.round(products.reduce((sum, product) => sum + product.priceCents, 0) / products.length)),
+        change: "Prix depuis PostgreSQL",
+      },
+      {
+        ...metrics[2],
+        label: "Plats populaires",
+        value: String(products.filter((product) => product.isFeatured).length),
+        change: "Mis en avant",
+      },
+      metrics[3],
+    ];
+  }, [categories.length, products]);
+
+  if (!auth) {
+    return <LoginScreen onLogin={setAuth} />;
+  }
+
+  function handleLogout() {
+    localStorage.removeItem(authStorageKey);
+    setAuth(null);
+  }
+
   return (
     <main className="admin-shell">
       <aside className="sidebar">
@@ -399,16 +641,18 @@ export function App() {
             <button className="promo"><Gift size={18} /> Promotion</button>
             <button className="whatsapp"><MessageCircle size={19} /></button>
             <button className="notification"><Bell size={20} /><span>3</span></button>
-            <button className="profile"><span>AK</span><b>Admin</b><small>Administrateur</small><ChevronDown size={16} /></button>
+            <button className="profile" onClick={handleLogout}><span>{auth.user.name.slice(0, 2).toUpperCase()}</span><b>{auth.user.name}</b><small>{auth.user.role}</small><ChevronDown size={16} /></button>
           </div>
         </header>
+
+        {apiError && <div className="api-banner">{apiError}</div>}
 
         <div className="date-row">
           <button><CalendarDays size={16} /> 18 mai - 24 mai 2025 <ChevronDown size={16} /></button>
         </div>
 
         <section className="metrics-grid">
-          {metrics.map((metric) => <MetricCard metric={metric} key={metric.label} />)}
+          {dashboardMetrics.map((metric) => <MetricCard metric={metric} key={metric.label} />)}
         </section>
 
         <section className="main-grid">
@@ -417,8 +661,9 @@ export function App() {
         </section>
 
         <section className="bottom-grid">
-          <TopDishesPanel />
+          <TopDishesPanel products={products} />
           <ChannelsPanel />
+          <MenuManagementPanel products={products} categories={categories} isLoading={isLoadingMenu} />
           <MessagesPanel />
           <ReviewsPanel />
           <StockPanel />
