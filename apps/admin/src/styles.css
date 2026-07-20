@@ -718,13 +718,11 @@ nav button.active {
 
 .bottom-grid {
   display: grid;
-  grid-template-columns:
-    minmax(280px, 1fr)
-    minmax(250px, 0.85fr)
-    minmax(320px, 1.1fr)
-    minmax(300px, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
   gap: 14px;
+  max-width: 100%;
   margin-top: 16px;
+  overflow: hidden;
 }
 
 .dish-list,
