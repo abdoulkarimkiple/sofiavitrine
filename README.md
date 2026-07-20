@@ -62,9 +62,12 @@ Endpoint de verification :
 
 ```bash
 curl http://localhost:3000/api/health
+curl http://localhost:3000/api/menu
 ```
 
 En Docker, `npm run api:up` demarre l'API et PostgreSQL.
+
+Le site vitrine lit maintenant le menu depuis `VITE_API_URL`. En local, la valeur par defaut est `http://localhost:3000/api`. Si l'API n'est pas disponible, le frontend garde le menu local comme fallback.
 
 ## Base de donnees
 
@@ -80,6 +83,12 @@ La migration initiale cree les tables principales du projet :
 - avis
 - stock et mouvements de stock
 - parametres applicatifs
+
+Pour remplir la base locale avec le menu actuel :
+
+```bash
+npm run prisma:seed
+```
 
 ## Modifications courantes
 

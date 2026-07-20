@@ -1,7 +1,8 @@
 export type MenuCategory =
   | "Tout"
   | "Plats"
-  | "Beverage";
+  | "Beverage"
+  | (string & {});
 
 export type MenuItem = {
   id: string;

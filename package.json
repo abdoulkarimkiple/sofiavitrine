@@ -17,6 +17,7 @@
     "start:api": "npm run start -w @sofia/api",
     "prisma:generate": "npm run prisma:generate -w @sofia/api",
     "prisma:migrate": "npm run prisma:migrate -w @sofia/api",
+    "prisma:seed": "npm run prisma:seed -w @sofia/api",
     "prisma:studio": "npm run prisma:studio -w @sofia/api",
     "api:up": "docker compose up -d api",
     "api:logs": "docker compose logs -f api",

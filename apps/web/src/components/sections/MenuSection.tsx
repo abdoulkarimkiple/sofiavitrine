@@ -1,5 +1,5 @@
-import { useMemo, useState } from "react";
-import { categories, menuItems } from "../../data/menu";
+import { useEffect, useMemo, useState } from "react";
+import { fallbackMenu, fetchPublicMenu } from "../../services/menuApi";
 import type { MenuCategory, MenuItem } from "../../types/menu";
 import { MenuCard } from "../menu/MenuCard";
 
@@ -11,6 +11,34 @@ type MenuSectionProps = {
 export function MenuSection({ onAdd, onOrderNow }: MenuSectionProps) {
   const [category, setCategory] = useState<MenuCategory>("Tout");
   const [search, setSearch] = useState("");
+  const [categories, setCategories] = useState<MenuCategory[]>(fallbackMenu.categories);
+  const [menuItems, setMenuItems] = useState<MenuItem[]>(fallbackMenu.items);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    fetchPublicMenu()
+      .then((menu) => {
+        if (!isMounted) {
+          return;
+        }
+
+        setCategories(menu.categories);
+        setMenuItems(menu.items);
+      })
+      .catch(() => {
+        if (!isMounted) {
+          return;
+        }
+
+        setCategories(fallbackMenu.categories);
+        setMenuItems(fallbackMenu.items);
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const filtered = useMemo(() => {
     return menuItems.filter((item) => {

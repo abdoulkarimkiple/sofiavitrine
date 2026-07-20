@@ -19,6 +19,7 @@ Health check:
 
 ```bash
 curl http://localhost:3000/api/health
+curl http://localhost:3000/api/menu
 ```
 
 ## Local database
@@ -39,6 +40,7 @@ Run migrations from the repository root:
 
 ```bash
 npm run prisma:migrate -w @sofia/api -- --name migration_name
+npm run prisma:seed
 ```
 
 ## Docker
